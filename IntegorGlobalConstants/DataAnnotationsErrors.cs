@@ -1,4 +1,4 @@
-﻿namespace IntegorDataAnnotationsSettings
+﻿namespace IntegorGlobalConstants
 {
 	public static class DataAnnotationsErrors
 	{
