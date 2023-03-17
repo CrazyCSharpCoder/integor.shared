@@ -10,33 +10,39 @@ using IntegorSharedErrorHandlers.Converters;
 
 namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
 {
-	public class WebApiStatusCodesHandlingMiddleware : IMiddleware
+	public class WebApiStatusCodesHandlingMiddleware
     {
-        private IResponseErrorObjectCompiler _errorsCompiler;
+		private RequestDelegate _next;
+
+		private IResponseErrorObjectCompiler _errorsCompiler;
         private StatusCodeErrorConverter _statusCodeConverter;
 
 		private WriteBodyDelegate _writeBody;
 		private ValidateHttpContextActionDelegate _checkProcessingRequired;
 
 		public WebApiStatusCodesHandlingMiddleware(
+			RequestDelegate next,
+
             IResponseErrorObjectCompiler errorsCompiler,
             StatusCodeErrorConverter statusCodeConverter,
 
 			WriteBodyDelegate bodyWriter,
-			ValidateHttpContextActionDelegate? checkProcessingRequired = null)
+			ValidateHttpContextActionDelegate checkProcessingRequired)
         {
+			_next = next;
+
             _errorsCompiler = errorsCompiler;
             _statusCodeConverter = statusCodeConverter;
 
 			_writeBody = bodyWriter;
-			_checkProcessingRequired = checkProcessingRequired ?? CheckContextProcessUnmarked;
+			_checkProcessingRequired = checkProcessingRequired;
         }
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context)
         {
-            await next.Invoke(context);
+            await _next.Invoke(context);
 
-            if (_checkProcessingRequired.Invoke(context))
+            if (!_checkProcessingRequired.Invoke(context))
                 return;
 
             HttpResponse response = context.Response;
@@ -45,14 +51,6 @@ namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
 			object body = _errorsCompiler.CompileResponse(errors);
 
 			await _writeBody.Invoke(response, body);
-		}
-
-		private bool CheckContextProcessUnmarked(HttpContext context)
-		{
-			IHttpContextProcessedMarker processedMarker =
-				context.RequestServices.GetRequiredService<IHttpContextProcessedMarker>();
-
-			return !processedMarker.IsProcessed();
 		}
     }
 }
