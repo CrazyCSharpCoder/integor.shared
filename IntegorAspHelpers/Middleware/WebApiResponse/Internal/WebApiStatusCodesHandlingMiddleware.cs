@@ -10,21 +10,27 @@ using IntegorSharedErrorHandlers.Converters;
 
 namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
 {
-	public class WebApiStatusCodesHandlingMiddleware : IMiddleware
+	public class WebApiStatusCodesHandlingMiddleware
     {
-        private IResponseErrorObjectCompiler _errorsCompiler;
+		private RequestDelegate _next;
+
+		private IResponseErrorObjectCompiler _errorsCompiler;
         private StatusCodeErrorConverter _statusCodeConverter;
 
 		private WriteBodyDelegate _writeBody;
 		private ValidateHttpContextActionDelegate _checkProcessingRequired;
 
 		public WebApiStatusCodesHandlingMiddleware(
+			RequestDelegate next,
+
             IResponseErrorObjectCompiler errorsCompiler,
             StatusCodeErrorConverter statusCodeConverter,
 
 			WriteBodyDelegate bodyWriter,
 			ValidateHttpContextActionDelegate? checkProcessingRequired = null)
         {
+			_next = next;
+
             _errorsCompiler = errorsCompiler;
             _statusCodeConverter = statusCodeConverter;
 
@@ -32,9 +38,9 @@ namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
 			_checkProcessingRequired = checkProcessingRequired ?? CheckContextProcessUnmarked;
         }
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context)
         {
-            await next.Invoke(context);
+            await _next.Invoke(context);
 
             if (_checkProcessingRequired.Invoke(context))
                 return;

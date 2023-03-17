@@ -7,30 +7,36 @@ using IntegorSharedErrorHandlers.Converters;
 
 namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
 {
-    public class WebApiExceptionsHandlingMiddleware : IMiddleware
+    public class WebApiExceptionsHandlingMiddleware
     {
-        private IResponseErrorObjectCompiler _errorsCompiler;
+		private RequestDelegate _next;
+
+		private IResponseErrorObjectCompiler _errorsCompiler;
         private StatusCodeErrorConverter _statusCodeConverter;
 
 		private WriteBodyDelegate _writeBody;
 
 		public WebApiExceptionsHandlingMiddleware(
+			RequestDelegate next,
+
             IResponseErrorObjectCompiler errorsCompiler,
             StatusCodeErrorConverter statusCodeConverter,
 
 			WriteBodyDelegate bodyWriter)
         {
+			_next = next;
+
             _errorsCompiler = errorsCompiler;
             _statusCodeConverter = statusCodeConverter;
 
 			_writeBody = bodyWriter;
 		}
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
-                await next.Invoke(context);
+                await _next.Invoke(context);
             }
             catch
             {
