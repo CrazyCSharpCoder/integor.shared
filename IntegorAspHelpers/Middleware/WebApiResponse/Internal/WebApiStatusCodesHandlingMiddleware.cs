@@ -27,7 +27,7 @@ namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
             StatusCodeErrorConverter statusCodeConverter,
 
 			WriteBodyDelegate bodyWriter,
-			ValidateHttpContextActionDelegate? checkProcessingRequired = null)
+			ValidateHttpContextActionDelegate checkProcessingRequired)
         {
 			_next = next;
 
@@ -35,7 +35,7 @@ namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
             _statusCodeConverter = statusCodeConverter;
 
 			_writeBody = bodyWriter;
-			_checkProcessingRequired = checkProcessingRequired ?? CheckContextProcessUnmarked;
+			_checkProcessingRequired = checkProcessingRequired;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -51,14 +51,6 @@ namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
 			object body = _errorsCompiler.CompileResponse(errors);
 
 			await _writeBody.Invoke(response, body);
-		}
-
-		private bool CheckContextProcessUnmarked(HttpContext context)
-		{
-			IHttpContextProcessedMarker processedMarker =
-				context.RequestServices.GetRequiredService<IHttpContextProcessedMarker>();
-
-			return !processedMarker.IsProcessed();
 		}
     }
 }
