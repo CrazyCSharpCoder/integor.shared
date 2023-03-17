@@ -42,7 +42,7 @@ namespace IntegorAspHelpers.Middleware.WebApiResponse.Internal
         {
             await _next.Invoke(context);
 
-            if (_checkProcessingRequired.Invoke(context))
+            if (!_checkProcessingRequired.Invoke(context))
                 return;
 
             HttpResponse response = context.Response;
