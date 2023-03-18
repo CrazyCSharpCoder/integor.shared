@@ -8,6 +8,6 @@ namespace IntegorResponseDecoration
 {
     public interface IResponseObjectDecorator
     {
-        ResponseBodyDecorationResult Decorate(object? bodyObject);
+        ResponseBodyDecorationResult Decorate(object? responseObject);
     }
 }
