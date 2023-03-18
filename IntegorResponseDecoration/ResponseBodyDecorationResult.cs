@@ -3,7 +3,7 @@
     public class ResponseBodyDecorationResult
     {
         public bool Success { get; }
-        public object? NewBody { get; }
+        public object? NewValue { get; }
 
         public ResponseBodyDecorationResult(bool success)
         {
@@ -13,10 +13,10 @@
         /// <summary>
         /// Successful result with a new body for response
         /// </summary>
-        public ResponseBodyDecorationResult(object? newBody)
+        public ResponseBodyDecorationResult(object? newValue)
         {
             Success = true;
-            NewBody = newBody;
+            NewValue = newValue;
         }
     }
 }

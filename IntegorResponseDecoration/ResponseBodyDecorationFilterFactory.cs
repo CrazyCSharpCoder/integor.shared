@@ -23,8 +23,8 @@ namespace IntegorResponseDecoration
 
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {
-            IEnumerable<IResponseBodyDecorator> decorators = _decoratorTypes.Select(
-                decType => (IResponseBodyDecorator)serviceProvider.GetRequiredService(decType));
+            IEnumerable<IResponseObjectDecorator> decorators = _decoratorTypes.Select(
+                decType => (IResponseObjectDecorator)serviceProvider.GetRequiredService(decType));
 
             Type filterType = typeof(ResponseBodyDecorationFilter);
             return (Activator.CreateInstance(filterType, decorators) as IFilterMetadata)!;
@@ -32,9 +32,9 @@ namespace IntegorResponseDecoration
 
         private class ResponseBodyDecorationFilter : IActionFilter
         {
-            private IEnumerable<IResponseBodyDecorator> _decorators;
+            private IEnumerable<IResponseObjectDecorator> _decorators;
 
-            public ResponseBodyDecorationFilter(IEnumerable<IResponseBodyDecorator> decorators)
+            public ResponseBodyDecorationFilter(IEnumerable<IResponseObjectDecorator> decorators)
             {
                 _decorators = decorators;
             }
@@ -56,14 +56,14 @@ namespace IntegorResponseDecoration
                 result.Value = Decorate(_decorators, result.Value);
             }
 
-            private object? Decorate(IEnumerable<IResponseBodyDecorator> decorators, object? body)
+            private object? Decorate(IEnumerable<IResponseObjectDecorator> decorators, object? body)
             {
-                foreach (IResponseBodyDecorator decorator in decorators)
+                foreach (IResponseObjectDecorator decorator in decorators)
                 {
                     ResponseBodyDecorationResult decorationResult = decorator.Decorate(body);
 
                     if (decorationResult.Success)
-                        return decorationResult.NewBody;
+                        return decorationResult.NewValue;
                 }
 
                 return body;
