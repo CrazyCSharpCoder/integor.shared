@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,31 +9,31 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace IntegorResponseDecoration
 {
-    public class ResponseBodyDecorationFilterFactory : Attribute, IFilterFactory
+    public class ResponseObjectDecorationFilterFactory : Attribute, IFilterFactory
     {
         public bool IsReusable => false;
 
         private IEnumerable<Type> _decoratorTypes;
 
-        public ResponseBodyDecorationFilterFactory(params Type[] decoratorTypes)
+        public ResponseObjectDecorationFilterFactory(params Type[] decoratorTypes)
         {
             _decoratorTypes = decoratorTypes;
         }
 
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {
-            IEnumerable<IResponseObjectDecorator> decorators = _decoratorTypes.Select(
-                decType => (IResponseObjectDecorator)serviceProvider.GetRequiredService(decType));
+            IEnumerable<IResponseObjectOneSideDecorator> decorators = _decoratorTypes.Select(
+                decType => (IResponseObjectOneSideDecorator)serviceProvider.GetRequiredService(decType));
 
-            Type filterType = typeof(ResponseBodyDecorationFilter);
+            Type filterType = typeof(ResponseObjectDecorationFilter);
             return (Activator.CreateInstance(filterType, decorators) as IFilterMetadata)!;
         }
 
-        private class ResponseBodyDecorationFilter : IActionFilter
+        private class ResponseObjectDecorationFilter : IActionFilter
         {
-            private IEnumerable<IResponseObjectDecorator> _decorators;
+            private IEnumerable<IResponseObjectOneSideDecorator> _decorators;
 
-            public ResponseBodyDecorationFilter(IEnumerable<IResponseObjectDecorator> decorators)
+            public ResponseObjectDecorationFilter(IEnumerable<IResponseObjectOneSideDecorator> decorators)
             {
                 _decorators = decorators;
             }
@@ -56,11 +55,11 @@ namespace IntegorResponseDecoration
                 result.Value = Decorate(_decorators, result.Value);
             }
 
-            private object? Decorate(IEnumerable<IResponseObjectDecorator> decorators, object? body)
+            private object? Decorate(IEnumerable<IResponseObjectOneSideDecorator> decorators, object? body)
             {
-                foreach (IResponseObjectDecorator decorator in decorators)
+                foreach (IResponseObjectOneSideDecorator decorator in decorators)
                 {
-                    ResponseBodyDecorationResult decorationResult = decorator.Decorate(body);
+                    ResponseObjectDecorationResult decorationResult = decorator.Decorate(body);
 
                     if (decorationResult.Success)
                         return decorationResult.NewValue;
