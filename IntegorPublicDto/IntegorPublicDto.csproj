@@ -5,11 +5,11 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<VersionPrefix>0.1.0</VersionPrefix>
+	<VersionPrefix>1.0.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IntegorGlobalConstants" Version="0.2.0" />
+    <PackageReference Include="IntegorGlobalConstants" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
