@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling.ExtensibleError.Mixins
 {
+    using ExtensibleError;
     using static ExtensibleErrorMixinsDefaults;
-
-	using Primitives;
 
     public class MessageErrorMixin : ResponseErrorMixin<string>
 	{
