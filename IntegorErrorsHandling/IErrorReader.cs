@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling
 {
-	public interface IResponseErrorObjectCompiler
-	{
-		object CompileResponse(params IErrorConvertationResult[] errors);
-	}
+    public interface IErrorReader<TError, TReadableObject> where TError : IResponseError
+    {
+        TError ReadError(TReadableObject errorObject);
+    }
 }
