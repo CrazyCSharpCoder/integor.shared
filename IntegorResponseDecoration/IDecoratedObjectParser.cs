@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IntegorResponseDecoration
 {
-	public interface IResponseObjectOneSideDecorator
+	public interface IDecoratedObjectParser<TDecoratedRepresentation>
 	{
-		ResponseObjectDecorationResult Decorate(object? responseObject);
+		ResponseObjectDecorationResult ParseDecorated(TDecoratedRepresentation? decoratedObject);
 	}
 }

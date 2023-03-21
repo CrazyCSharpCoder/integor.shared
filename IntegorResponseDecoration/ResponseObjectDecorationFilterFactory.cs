@@ -22,8 +22,8 @@ namespace IntegorResponseDecoration
 
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {
-            IEnumerable<IResponseObjectOneSideDecorator> decorators = _decoratorTypes.Select(
-                decType => (IResponseObjectOneSideDecorator)serviceProvider.GetRequiredService(decType));
+            IEnumerable<IResponseObjectDecorator> decorators = _decoratorTypes.Select(
+                decType => (IResponseObjectDecorator)serviceProvider.GetRequiredService(decType));
 
             Type filterType = typeof(ResponseObjectDecorationFilter);
             return (Activator.CreateInstance(filterType, decorators) as IFilterMetadata)!;
@@ -31,9 +31,9 @@ namespace IntegorResponseDecoration
 
         private class ResponseObjectDecorationFilter : IActionFilter
         {
-            private IEnumerable<IResponseObjectOneSideDecorator> _decorators;
+            private IEnumerable<IResponseObjectDecorator> _decorators;
 
-            public ResponseObjectDecorationFilter(IEnumerable<IResponseObjectOneSideDecorator> decorators)
+            public ResponseObjectDecorationFilter(IEnumerable<IResponseObjectDecorator> decorators)
             {
                 _decorators = decorators;
             }
@@ -55,9 +55,9 @@ namespace IntegorResponseDecoration
                 result.Value = Decorate(_decorators, result.Value);
             }
 
-            private object? Decorate(IEnumerable<IResponseObjectOneSideDecorator> decorators, object? body)
+            private object? Decorate(IEnumerable<IResponseObjectDecorator> decorators, object? body)
             {
-                foreach (IResponseObjectOneSideDecorator decorator in decorators)
+                foreach (IResponseObjectDecorator decorator in decorators)
                 {
                     ResponseObjectDecorationResult decorationResult = decorator.Decorate(body);
 
