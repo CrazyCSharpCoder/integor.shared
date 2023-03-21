@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling
 {
-	public interface IHttpErrorObjectSerializer<TReadableErrors> : IResponseErrorObjectCompiler
+	public interface IHttpErrorObjectParser<TReadableErrors>
 	{
 		IEnumerable<IResponseError>? GetErrors(TReadableErrors responseObject);
 	}
