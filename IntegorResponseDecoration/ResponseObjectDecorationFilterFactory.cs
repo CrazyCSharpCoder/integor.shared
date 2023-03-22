@@ -62,7 +62,7 @@ namespace IntegorResponseDecoration
                     ResponseObjectDecorationResult decorationResult = decorator.Decorate(body);
 
                     if (decorationResult.Success)
-                        return decorationResult.NewValue;
+                        return decorationResult.Value;
                 }
 
                 return body;

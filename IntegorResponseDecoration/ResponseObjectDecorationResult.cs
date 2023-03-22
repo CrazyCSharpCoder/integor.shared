@@ -3,7 +3,7 @@
     public class ResponseObjectDecorationResult
     {
         public bool Success { get; }
-        public object? NewValue { get; }
+        public object? Value { get; }
 
         public ResponseObjectDecorationResult(bool success)
         {
@@ -16,7 +16,7 @@
         public ResponseObjectDecorationResult(object? newValue)
         {
             Success = true;
-            NewValue = newValue;
+            Value = newValue;
         }
     }
 }
