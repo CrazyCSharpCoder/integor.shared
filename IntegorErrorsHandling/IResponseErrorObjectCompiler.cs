@@ -9,5 +9,6 @@ namespace IntegorErrorsHandling
 	public interface IResponseErrorObjectCompiler
 	{
 		object CompileResponse(params IErrorConvertationResult[] errors);
+		object CompileResponse(params IResponseError[] errors);
 	}
 }
