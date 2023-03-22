@@ -8,6 +8,6 @@ namespace IntegorResponseDecoration.Parsing
 {
     public interface IDecoratedObjectParser<TParseResult, TDecoratedRepresentation>
     {
-        ResponseObjectParsingResult<TParseResult> ParseDecorated(TDecoratedRepresentation? decoratedObject);
+        DecoratedObjectParsingResult<TParseResult> ParseDecorated(TDecoratedRepresentation? decoratedObject);
     }
 }

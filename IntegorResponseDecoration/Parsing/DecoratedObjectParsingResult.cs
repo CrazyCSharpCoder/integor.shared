@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace IntegorResponseDecoration.Parsing
 {
-	public class ResponseObjectParsingResult<TValue>
+	public class DecoratedObjectParsingResult<TValue>
 	{
 		public bool Success { get; }
 		public TValue? Value { get; }
 
-		public ResponseObjectParsingResult(bool success)
+		public DecoratedObjectParsingResult(bool success)
 		{
 			Success = success;
 		}
@@ -19,7 +19,7 @@ namespace IntegorResponseDecoration.Parsing
 		/// <summary>
 		/// Successful result with a new body for response
 		/// </summary>
-		public ResponseObjectParsingResult(TValue? newValue)
+		public DecoratedObjectParsingResult(TValue? newValue)
 		{
 			Success = true;
 			Value = newValue;
