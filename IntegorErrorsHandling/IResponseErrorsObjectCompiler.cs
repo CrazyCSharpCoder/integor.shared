@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling
 {
-	public interface IResponseErrorObjectCompiler
+	public interface IResponseErrorsObjectCompiler
 	{
 		object CompileResponse(params IErrorConvertationResult[] errors);
 		object CompileResponse(params IResponseError[] errors);

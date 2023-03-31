@@ -22,7 +22,7 @@ namespace IntegorErrorsHandling.Filters
 
 		public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
 		{
-			IResponseErrorObjectCompiler errorsCompiler = serviceProvider.GetRequiredService<IResponseErrorObjectCompiler>();
+			IResponseErrorsObjectCompiler errorsCompiler = serviceProvider.GetRequiredService<IResponseErrorsObjectCompiler>();
 			return new ExtensibleExeptionHandlingLazyFilter(serviceProvider, errorsCompiler, _converterTypes);
 		}
 	}
