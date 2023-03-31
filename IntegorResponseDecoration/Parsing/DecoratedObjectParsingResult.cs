@@ -19,10 +19,10 @@ namespace IntegorResponseDecoration.Parsing
 		/// <summary>
 		/// Successful result with a new body for response
 		/// </summary>
-		public DecoratedObjectParsingResult(TValue? newValue)
+		public DecoratedObjectParsingResult(TValue? value)
 		{
 			Success = true;
-			Value = newValue;
+			Value = value;
 		}
 	}
 }

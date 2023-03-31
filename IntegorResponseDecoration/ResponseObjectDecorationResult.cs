@@ -13,10 +13,10 @@
         /// <summary>
         /// Successful result with a new body for response
         /// </summary>
-        public ResponseObjectDecorationResult(object? newValue)
+        public ResponseObjectDecorationResult(object? value)
         {
             Success = true;
-            Value = newValue;
+            Value = value;
         }
     }
 }
