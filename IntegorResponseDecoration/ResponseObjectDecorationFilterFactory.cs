@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,13 +9,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace IntegorResponseDecoration
 {
-    public class ResponseBodyDecorationFilterFactory : Attribute, IFilterFactory
+    public class ResponseObjectDecorationFilterFactory : Attribute, IFilterFactory
     {
         public bool IsReusable => false;
 
         private IEnumerable<Type> _decoratorTypes;
 
-        public ResponseBodyDecorationFilterFactory(params Type[] decoratorTypes)
+        public ResponseObjectDecorationFilterFactory(params Type[] decoratorTypes)
         {
             _decoratorTypes = decoratorTypes;
         }
@@ -26,15 +25,15 @@ namespace IntegorResponseDecoration
             IEnumerable<IResponseObjectDecorator> decorators = _decoratorTypes.Select(
                 decType => (IResponseObjectDecorator)serviceProvider.GetRequiredService(decType));
 
-            Type filterType = typeof(ResponseBodyDecorationFilter);
+            Type filterType = typeof(ResponseObjectDecorationFilter);
             return (Activator.CreateInstance(filterType, decorators) as IFilterMetadata)!;
         }
 
-        private class ResponseBodyDecorationFilter : IActionFilter
+        private class ResponseObjectDecorationFilter : IActionFilter
         {
             private IEnumerable<IResponseObjectDecorator> _decorators;
 
-            public ResponseBodyDecorationFilter(IEnumerable<IResponseObjectDecorator> decorators)
+            public ResponseObjectDecorationFilter(IEnumerable<IResponseObjectDecorator> decorators)
             {
                 _decorators = decorators;
             }
@@ -60,10 +59,10 @@ namespace IntegorResponseDecoration
             {
                 foreach (IResponseObjectDecorator decorator in decorators)
                 {
-                    ResponseBodyDecorationResult decorationResult = decorator.Decorate(body);
+                    ResponseObjectDecorationResult decorationResult = decorator.Decorate(body);
 
                     if (decorationResult.Success)
-                        return decorationResult.NewValue;
+                        return decorationResult.Value;
                 }
 
                 return body;

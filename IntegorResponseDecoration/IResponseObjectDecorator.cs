@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IntegorResponseDecoration
 {
     public interface IResponseObjectDecorator
-    {
-        ResponseBodyDecorationResult Decorate(object? responseObject);
-    }
+	{
+		ResponseObjectDecorationResult Decorate(object? responseObject);
+	}
 }

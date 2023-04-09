@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntegorErrorsHandling.ExtensibleError.Primitives
+namespace IntegorErrorsHandling.ExtensibleError
 {
     public abstract class ResponseErrorMixinAbstract
     {

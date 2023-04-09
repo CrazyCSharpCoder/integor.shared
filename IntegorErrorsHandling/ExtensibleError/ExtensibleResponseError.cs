@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Dynamic;
 
-namespace IntegorErrorsHandling.ExtensibleError.Primitives
+namespace IntegorErrorsHandling.ExtensibleError
 {
     public class ExtensibleResponseError : IResponseError
     {

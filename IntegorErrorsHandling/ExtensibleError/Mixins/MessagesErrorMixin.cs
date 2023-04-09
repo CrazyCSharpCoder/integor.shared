@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling.ExtensibleError.Mixins
 {
+    using ExtensibleError;
     using static ExtensibleErrorMixinsDefaults;
 
-	using Primitives;
-
-	public class MessagesErrorMixin : ResponseErrorMixin<IEnumerable<string>>
+    public class MessagesErrorMixin : ResponseErrorMixin<IEnumerable<string>>
 	{
 		public MessagesErrorMixin(IEnumerable<string> messages) : base(MessagesMixinKey, messages)
 		{
