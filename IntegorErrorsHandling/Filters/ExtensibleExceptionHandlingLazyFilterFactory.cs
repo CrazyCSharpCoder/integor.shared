@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace IntegorErrorsHandling.Filters
 {
-	public class ExtensibleExeptionHandlingLazyFilterFactory : Attribute, IFilterFactory
+	public class ExtensibleExceptionHandlingLazyFilterFactory : Attribute, IFilterFactory
 	{
 		public bool IsReusable => false;
 
 		private Type[] _converterTypes;
 
-		public ExtensibleExeptionHandlingLazyFilterFactory(params Type[] exceptionConverterTypes)
+		public ExtensibleExceptionHandlingLazyFilterFactory(params Type[] exceptionConverterTypes)
 		{
 			_converterTypes = exceptionConverterTypes;
 		}
@@ -23,7 +23,7 @@ namespace IntegorErrorsHandling.Filters
 		public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
 		{
 			IResponseErrorsObjectCompiler errorsCompiler = serviceProvider.GetRequiredService<IResponseErrorsObjectCompiler>();
-			return new ExtensibleExeptionHandlingLazyFilter(serviceProvider, errorsCompiler, _converterTypes);
+			return new ExtensibleExceptionHandlingLazyFilter(serviceProvider, errorsCompiler, _converterTypes);
 		}
 	}
 }

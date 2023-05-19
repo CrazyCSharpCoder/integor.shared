@@ -13,13 +13,13 @@ namespace IntegorErrorsHandling.Filters
 {
     using DefaultImplementations;
 
-    public class ExtensibleExeptionHandlingLazyFilter : Attribute, IExceptionFilter
+    public class ExtensibleExceptionHandlingLazyFilter : Attribute, IExceptionFilter
     {
         private IResponseErrorsObjectCompiler _errorsComplier;
 
         private AutomaticLazyExceptionConverter<Exception> _filterConvertationMechanism;
 
-        public ExtensibleExeptionHandlingLazyFilter(IServiceProvider services, IResponseErrorsObjectCompiler errorsComplier,
+        public ExtensibleExceptionHandlingLazyFilter(IServiceProvider services, IResponseErrorsObjectCompiler errorsComplier,
 
             params Type[] exceptionConverterTypes)
         {
