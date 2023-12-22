@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling.Converters
 {
-	using ExtensibleError;
-	using Helpers;
+    using ExtensibleError;
+    using Helpers;
+    using IntegorErrorsHandling.ExtensibleError.Builder;
 
-	public abstract class ConverterBase
+    public abstract class ConverterBase
 	{
 		protected static IErrorConvertationResult Single(IResponseError error) => ConvertResultShortcuts.Single(error);
 

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegorErrorsHandling", "IntegorErrorsHandling\IntegorErrorsHandling.csproj", "{E509A4F9-5970-46D4-8FFF-84BC9AFC0C64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegorErrorsHandling", "IntegorErrorsHandling\IntegorErrorsHandling.csproj", "{E509A4F9-5970-46D4-8FFF-84BC9AFC0C64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegorResponseDecoration", "IntegorResponseDecoration\IntegorResponseDecoration.csproj", "{FA10B053-CA7E-433B-8E7B-A7A733770B91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegorResponseDecoration", "IntegorResponseDecoration\IntegorResponseDecoration.csproj", "{FA10B053-CA7E-433B-8E7B-A7A733770B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegorGlobalConstants", "IntegorGlobalConstants\IntegorGlobalConstants.csproj", "{6A41E1E2-0515-4F3B-9A93-C1D01027B808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegorGlobalConstants", "IntegorGlobalConstants\IntegorGlobalConstants.csproj", "{6A41E1E2-0515-4F3B-9A93-C1D01027B808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

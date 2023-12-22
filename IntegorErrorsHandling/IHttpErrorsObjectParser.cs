@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling
 {
-	public interface IResponseErrorObjectCompiler
+	public interface IHttpErrorsObjectParser<TReadableErrors>
 	{
-		object CompileResponse(params IErrorConvertationResult[] errors);
+		IEnumerable<IResponseError>? GetErrors(TReadableErrors responseObject);
 	}
 }

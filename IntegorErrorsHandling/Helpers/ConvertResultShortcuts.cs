@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace IntegorErrorsHandling.Helpers
 {
-	using ConvertationResults;
-	using ExtensibleError;
+    using ConvertationResults;
+    using ExtensibleError;
+    using IntegorErrorsHandling.ExtensibleError.Builder;
 
-	public static class ConvertResultShortcuts
+    public static class ConvertResultShortcuts
 	{
 		public static IErrorConvertationResult Single(IResponseError error)
 		{
